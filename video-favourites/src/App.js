@@ -1,6 +1,6 @@
 import React from 'react';
-import List from './components/List';
+import Router from './components/Router';
 
-const App = () => <List />;
+const App = () => <Router />;
 
 export default App;

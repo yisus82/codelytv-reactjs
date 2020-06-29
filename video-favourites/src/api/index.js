@@ -70,7 +70,7 @@ const getDescription = async () => {
   }
 };
 
-export const getVideoDetail = ({ idVideo }) =>
+export const getVideoDetail = idVideo =>
   new Promise((resolve, reject) => {
     const video = FAKE_DATA.find(video => +video.id === +idVideo);
     setTimeout(
@@ -80,7 +80,7 @@ export const getVideoDetail = ({ idVideo }) =>
           : video.description
           ? resolve(video)
           : getDescription().then(description => {
-              video.description = description.join();
+              video.description = description.join(' ');
               return resolve(video);
             }),
       FAKE_DELAY

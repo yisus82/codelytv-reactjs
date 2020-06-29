@@ -5,7 +5,7 @@ import Header from './Header';
 import Item from './Item';
 
 const List = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(null);
 
@@ -21,7 +21,6 @@ const List = () => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     fetchData();
   }, []);
 
@@ -30,7 +29,7 @@ const List = () => {
   }
 
   if (isLoading) {
-    return <Loading message='Loading...' />;
+    return <Loading message='Loading videos...' />;
   }
 
   return (

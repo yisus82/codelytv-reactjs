@@ -25,6 +25,7 @@ code {
 .error {
   color: #d8000c;
   background-color: #ffd2d2;
+  text-align: center;
 }
 
 .success {
@@ -221,4 +222,15 @@ input[type='button']:disabled {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-link {
+  text-decoration: none;
 }
