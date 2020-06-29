@@ -51,6 +51,10 @@ code {
 /** List **/
 
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -222,15 +226,4 @@ input[type='button']:disabled {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.video-link {
-  text-decoration: none;
 }
