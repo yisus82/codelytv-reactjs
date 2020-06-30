@@ -27,13 +27,14 @@ const Add = ({ onClose }) => {
   const isFormValid = () =>
     state.title.length > 0 &&
     state.url.length > 0 &&
-    state.description.length > 2;
+    state.description.length > 2 &&
+    parseYoutubeUrl(state.url);
 
   const handleSubmit = event => {
     event.preventDefault();
     if (isFormValid()) {
       const token = parseYoutubeUrl(state.url);
-      setState({ ...state, showSending: true });
+      setState({ ...state, showSending: true, hasError: false });
       addVideo({
         title: state.title,
         description: state.description,
@@ -98,11 +99,7 @@ const Add = ({ onClose }) => {
             onChange={handleChange('description')}
             required
           />
-          <button
-            type='submit'
-            onClick={handleSubmit}
-            disabled={showSending || !isFormValid()}
-          >
+          <button type='submit' onClick={handleSubmit} disabled={showSending}>
             Submit
           </button>
         </form>
