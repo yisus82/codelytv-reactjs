@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getVideos } from '../api';
 import Loading from './Loading';
 import Header from './Header';
@@ -26,23 +26,24 @@ const List = () => {
     fetchData();
   }, []);
 
-  const handleAdd = event => {
+  const handleAdd = useCallback(event => {
     event.preventDefault();
     setShowAdd(true);
-  };
+  }, []);
 
-  const handleCloseAdd = reload => () => {
-    if (reload) {
-      setIsLoading(true);
+  const handleCloseAdd = useCallback(
+    reload => () => {
       setShowAdd(false);
-      getVideos()
-        .then(data => setVideos(data))
-        .catch(error => setError(error))
-        .finally(setIsLoading(false));
-    } else {
-      setShowAdd(false);
-    }
-  };
+      if (reload) {
+        setIsLoading(true);
+        getVideos()
+          .then(data => setVideos(data))
+          .catch(error => setError(error))
+          .finally(setIsLoading(false));
+      }
+    },
+    []
+  );
 
   if (error) {
     return <p className='error'>{error.message}</p>;

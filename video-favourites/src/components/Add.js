@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Typed from 'react-typed';
 import { addVideo } from '../api';
@@ -17,38 +17,47 @@ const Add = ({ onClose }) => {
     return match && match[2];
   };
 
-  const handleChange = field => event => {
-    setState({
-      ...state,
-      [field]: event.target.value,
-    });
-  };
-
-  const isFormValid = () =>
-    state.title.length > 0 &&
-    state.url.length > 0 &&
-    state.description.length > 2 &&
-    parseYoutubeUrl(state.url);
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    if (isFormValid()) {
-      const token = parseYoutubeUrl(state.url);
-      setState({ ...state, showSending: true, hasError: false });
-      addVideo({
-        title: state.title,
-        description: state.description,
-        url: state.url,
-        thumbnail: `https://img.youtube.com/vi/${token}/maxresdefault.jpg`,
-        embed: `https://www.youtube.com/embed/${token}`,
-      }).then(onClose(true));
-    } else {
-      setState({
+  const handleChange = useCallback(
+    field => event => {
+      setState(state => ({
         ...state,
-        hasError: true,
-      });
-    }
-  };
+        [field]: event.target.value,
+      }));
+    },
+    []
+  );
+
+  const isFormValid = useCallback(
+    () =>
+      state.title.length > 0 &&
+      state.url.length > 0 &&
+      state.description.length > 2 &&
+      parseYoutubeUrl(state.url),
+    [state.description.length, state.title.length, state.url]
+  );
+
+  const handleSubmit = useCallback(
+    event => {
+      event.preventDefault();
+      if (isFormValid()) {
+        const token = parseYoutubeUrl(state.url);
+        setState({ ...state, showSending: true, hasError: false });
+        addVideo({
+          title: state.title,
+          description: state.description,
+          url: state.url,
+          thumbnail: `https://img.youtube.com/vi/${token}/maxresdefault.jpg`,
+          embed: `https://www.youtube.com/embed/${token}`,
+        }).then(onClose(true));
+      } else {
+        setState({
+          ...state,
+          hasError: true,
+        });
+      }
+    },
+    [isFormValid, onClose, state]
+  );
 
   const { showSending, title, url, description, hasError } = state;
 
