@@ -9,7 +9,7 @@ const Add = ({ onClose }) => {
     showSending: false,
     title: '',
     url: '',
-    text: '',
+    description: '',
   });
 
   const parseYoutubeUrl = url => {
@@ -98,7 +98,11 @@ const Add = ({ onClose }) => {
             onChange={handleChange('description')}
             required
           />
-          <button type='submit' onClick={handleSubmit} disabled={showSending}>
+          <button
+            type='submit'
+            onClick={handleSubmit}
+            disabled={showSending || !isFormValid()}
+          >
             Submit
           </button>
         </form>
