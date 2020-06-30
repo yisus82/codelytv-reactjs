@@ -62,7 +62,7 @@ code {
 .grid-container {
   display: grid;
   width: 100%;
-  margin: 0 auto;
+  margin: 10px auto;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 20px;
 }
@@ -156,8 +156,7 @@ label {
   font-weight: bold;
 }
 
-input[type='text'],
-select,
+input,
 textarea {
   width: 100%;
   padding: 12px;
@@ -166,24 +165,11 @@ textarea {
   box-sizing: border-box;
   margin-top: 6px;
   margin-bottom: 16px;
-  resize: vertical;
+  resize: none;
 }
 
-input[type='number'],
-select,
-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-}
-
-input[type='submit'],
-input[type='button'] {
+button[type='submit'],
+button[type='button'] {
   background-color: #4caf50;
   color: white;
   padding: 12px 20px;
@@ -194,13 +180,13 @@ input[type='button'] {
   margin-top: 6px;
 }
 
-input[type='submit']:hover,
-input[type='button']:hover {
+button[type='submit']:hover,
+button[type='button']:hover {
   background-color: #45a049;
 }
 
-input[type='submit']:disabled,
-input[type='button']:disabled {
+button[type='submit']:disabled,
+button[type='button']:disabled {
   background-color: #cccccc;
   color: #666666;
 }
@@ -215,15 +201,10 @@ input[type='button']:disabled {
 
 /* The Close Button */
 .close {
-  color: #aaa;
   float: right;
-  font-size: 28px;
-  font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-  color: black;
-  text-decoration: none;
   cursor: pointer;
 }

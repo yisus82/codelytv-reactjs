@@ -3,11 +3,13 @@ import { getVideos } from '../api';
 import Loading from './Loading';
 import Header from './Header';
 import Item from './Item';
+import Add from './Add';
 
 const List = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(null);
+  const [showAdd, setShowAdd] = useState(false);
 
   const fetchData = async () => {
     try {
@@ -24,6 +26,24 @@ const List = () => {
     fetchData();
   }, []);
 
+  const handleAdd = event => {
+    event.preventDefault();
+    setShowAdd(true);
+  };
+
+  const handleCloseAdd = reload => () => {
+    if (reload) {
+      setIsLoading(true);
+      setShowAdd(false);
+      getVideos()
+        .then(data => setVideos(data))
+        .catch(error => setError(error))
+        .finally(setIsLoading(false));
+    } else {
+      setShowAdd(false);
+    }
+  };
+
   if (error) {
     return <p className='error'>{error.message}</p>;
   }
@@ -34,7 +54,7 @@ const List = () => {
 
   return (
     <>
-      <Header />
+      <Header onClickAdd={handleAdd} />
       <div className='container'>
         <div className='grid-container'>
           {videos.length === 0 && <span>No videos found</span>}
@@ -43,6 +63,7 @@ const List = () => {
           ))}
         </div>
       </div>
+      {showAdd && <Add onClose={handleCloseAdd} />}
     </>
   );
 };
